@@ -12,7 +12,7 @@ import DateTimePicker from 'react-native-modal-datetime-picker';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import logo from '../img/logo.png';
 import { keys } from '../config';
-import { schedule } from '../scheduleExample';
+import { schedule1 } from '../scheduleExample';
 
 const styles = StyleSheet.create({
   container: {
@@ -47,7 +47,7 @@ export default class NewItinerary extends React.Component {
     console.log(this.state.endDate);
     console.log(this.state.destination);
     // Build the itinerary
-    this.props.navigation.navigate('Itinerary', { schedule });
+    this.props.navigation.navigate('Itinerary', { dayInfo: schedule1 });
   }
 
   showStartDateTimePicker() {

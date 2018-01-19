@@ -57,21 +57,29 @@ export default class Event extends React.Component {
   }
   
   render() {
+    console.log('dayinfo', this.props.dayInfo);
     const events = Object.keys(this.props.dayInfo);
-    const eventNames = events.map((event, i) => (<Text key={`day${i}`} >{this.props.dayInfo[event].name}</Text>))
+    const eventNames = events.map((event, i) => (<Text key={`day${i}`} >{this.props.dayInfo[event].name}</Text>));
+    const eventCoordinates = events.map((event) => { 
+      return { title: this.props.dayInfo[event].name, coordinates: this.props.dayInfo[event].location };
+    });
+    const eventMarkers = eventCoordinates.map(coor => (<MapView.Marker coordinate={coor.coordinates} title={coor.title} key={coor.title} />));
+    const startingPoint = {
+      latitude: this.props.dayInfo[0].location.latitude,
+      longitude: this.props.dayInfo[0].location.longitude,
+      latitudeDelta: 0.0922,
+      longitudeDelta: 0.0421,
+    };
     return (
       <View style={styles.container}>
         <Image source={logo} style={{ width: 100, height: 100 }} />
         <View style={{ width: 200, height: 200 }}>
           <MapView
             style={{ flex: 1 }}
-            initialRegion={{
-              latitude: 37.78825,
-              longitude: -122.4324,
-              latitudeDelta: 0.0922,
-              longitudeDelta: 0.0421,
-            }}
-          />
+            initialRegion={startingPoint}
+          >
+            {eventMarkers}
+          </MapView>
         </View>
         {eventNames}
         <SortableListView

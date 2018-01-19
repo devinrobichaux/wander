@@ -21,16 +21,15 @@ export default class Itinerary extends React.Component {
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     // Query the database, grab the itinerary, set state accordingly
-    this.setState({ itinerary: this.props.navigation.state.params.schedule });
+    console.log('itinerary schedule', this.props.navigation.state.params.dayInfo);
+    this.setState({ itinerary: this.props.navigation.state.params.dayInfo });
   }
 
   render() {
-    const days = Object.keys(this.state.itinerary);
-    console.log(days);
+    const days = Object.keys(this.state.itinerary).filter(item => typeof this.state.itinerary[item] === 'object');
     const eventViews = days.map(day => (<Event dayInfo={this.state.itinerary[day]} key={day} />));
-    // Create itinerary components accordingly
     return (
       <Swiper>
         {eventViews}
