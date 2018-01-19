@@ -35,7 +35,11 @@
     "react-native-md-textinput": "^2.0.4",
     "react-native-modal-datetime-picker": "^4.13.0",
     "react-native-open-maps": "^0.1.1",
+<<<<<<< Updated upstream
     "react-native-sortable-list": "0.0.20",
+=======
+    "react-native-sortable-listview": "^0.2.7",
+>>>>>>> Stashed changes
     "react-native-swiper": "^1.5.13",
     "react-native-textinput-effects": "^0.4.2",
     "react-native-vector-icons": "^4.5.0",

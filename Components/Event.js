@@ -1,12 +1,11 @@
 import React from 'react';
 import openMap from 'react-native-open-maps';
 // import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
-import { Text, Button, View, StyleSheet, Image, Animated, Easing, Dimensions } from 'react-native';
+import { Text, Button, View, StyleSheet, Image, Row } from 'react-native';
 import { MapView } from 'expo';
 // https://github.com/react-community/react-native-maps for more information on how this library works
 import logo from '../img/logo.png';
-import SortableList from 'react-native-sortable-list';
-
+import SortableListView from 'react-native-sortable-listview'
 
 const styles = StyleSheet.create({
   container: {
@@ -42,6 +41,8 @@ const styles = StyleSheet.create({
 });
 
 
+
+
 export default class Event extends React.Component {
   constructor(props) {
     super(props);
@@ -49,12 +50,12 @@ export default class Event extends React.Component {
     };
     this.openNewMap = this.openNewMap.bind(this);
   }
-
+  
   openNewMap() {
     // Get the coordinates out of the event's info
     openMap({ latutude: 40.7128, longitude: -74.0060 });
   }
-
+  
   render() {
     const events = Object.keys(this.props.dayInfo);
     const eventNames = events.map((event, i) => (<Text key={`day${i}`} >{this.props.dayInfo[event].name}</Text>))
@@ -72,13 +73,16 @@ export default class Event extends React.Component {
             }}
           />
         </View>
-        {/* {eventNames} */}
-
-          <SortableList
-            style={styles.list}
-            contentContainerStyle={styles.contentContainer}
-            data={eventNames}
-            renderRow={this._renderRow} />
+        {eventNames}
+        <SortableListView
+        style={{ flex: 1 }}
+        data={eventNames}
+        onRowMoved={e => {
+          eventNames.splice(e.to, 0, eventNames.splice(e.from, 1)[0])
+          this.forceUpdate()
+        }}
+        renderRow={row => <RowComponent data={row} />}
+      />
         <Button
           title="Go to Dashboard"
           onPress={() => this.props.navigation.navigate('Dashboard')}
