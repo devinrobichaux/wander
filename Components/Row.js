@@ -186,10 +186,7 @@ export default class Row extends React.Component {
                 <Button
                   onPress={() => this.closeModal()}
                   title="Close modal"
-
                 />
-
-                  </Button>
                 </Card>
 
               </View>
